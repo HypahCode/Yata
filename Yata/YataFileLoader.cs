@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Globalization;
 using Yata.CoreNode;
 using Yata.CoreNode.DataTypes;
 

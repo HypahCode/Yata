@@ -8,7 +8,7 @@ namespace Yata
 {
     internal class NodeExtractor
     {
-        private List<Yata.NodeFactory.NodeInfo> nodes = new List<Yata.NodeFactory.NodeInfo>();
+        private List<NodeFactory.NodeInfo> nodes = new List<NodeFactory.NodeInfo>();
 
         internal void Extract(Type[] types)
         {
@@ -16,7 +16,7 @@ namespace Yata
                 ExtractType(type, type);
         }
 
-        internal List<Yata.NodeFactory.NodeInfo> GetNodes()
+        internal List<NodeFactory.NodeInfo> GetNodes()
         {
             return nodes;
         }
@@ -32,36 +32,24 @@ namespace Yata
 
         private void CreateNodeInfo(Type type, Type detailedType)
         {
-            if (isTypeOfNode(type))
+            if (IsTypeOfNode(type))
             {
-                Yata.NodeFactory.NodeInfo info = new Yata.NodeFactory.NodeInfo();
-                FillNodeProperties(ref info, detailedType);
-                nodes.Add(info);
+                var attribute = GetNodeUsageAttribute(detailedType);
+                if (attribute != null)
+                {
+                    NodeFactory.NodeInfo info = new NodeFactory.NodeInfo();
+                    FillNodeProperties(ref info, detailedType, attribute);
+                    nodes.Add(info);
+                }
             }
         }
 
-        private void FillNodeProperties(ref Yata.NodeFactory.NodeInfo info, Type type)
+        private void FillNodeProperties(ref NodeFactory.NodeInfo info, Type type, NodeUsage nodeUsage)
         {
             info.type = type;
             info.className = type.FullName;
-            info.friendlyName = GetFriendlyNameProperty(type);
-            info.subMenuPath = GetSubMenuPathProperty(type);
-        }
-
-        private string GetFriendlyNameProperty(Type type)
-        {
-            PropertyInfo nameProp = type.GetProperty("FriendlyName");
-            if ((nameProp != null) && (nameProp.CanRead))
-                return (string)nameProp.GetValue(null, null);
-            return "";
-        }
-                
-        private string GetSubMenuPathProperty(Type type)
-        {
-            PropertyInfo subMenuPathProp = type.GetProperty("SubMenuPath");
-            if ((subMenuPathProp != null) && (subMenuPathProp.CanRead))
-                return (string)subMenuPathProp.GetValue(null, null);
-            return "";
+            info.friendlyName = nodeUsage.name;
+            info.subMenuPath = nodeUsage.directory;
         }
 
         private Bitmap GetIconProperty(Type type)
@@ -80,9 +68,19 @@ namespace Yata
             return null;
         }
 
-        private bool isTypeOfNode(Type type)
+        private bool IsTypeOfNode(Type type)
         {
             return type.Equals(typeof(Node));
+        }
+
+        private NodeUsage GetNodeUsageAttribute(Type type)
+        {
+            var attributes = type.GetCustomAttributes(typeof(NodeUsage), false);
+            if (attributes.Length > 0)
+            {
+                return attributes[0] as NodeUsage;
+            }
+            return null;
         }
     }
 }

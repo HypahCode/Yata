@@ -1,10 +1,14 @@
 ﻿using System;
+using Yata.CoreNode;
 using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Operations
 {
+    [NodeUsage(@"Image.Operations", nodeName)]
     public class BlendNode : ImageNodeBase
     {
+        private const string nodeName = @"Blend";
+
         private enum BlendMode { Mix, Add, Mul, Sub, ColorBurn, LinearBurn, Screen, ColorDodge, Inversion, Exclusion };
 
         private FloatColorInput inputA;
@@ -16,7 +20,7 @@ namespace Yata.ImageNodes.Nodes.Operations
         private int blendAmount = 1000;
 
         public BlendNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             inputA = AddInput("Input A");
             inputB = AddInput("Input B");
@@ -56,26 +60,15 @@ namespace Yata.ImageNodes.Nodes.Operations
                     result = a + b;
                     break;
             }
-            result.a = 1.0f;
 
-            return FloatColor.Lerp(a, result, (blendAmount / 1000.0f));
+            return FloatColor.Lerp(a, result, (blendAmount / 1000.0f) * a.a);
         }
 
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
-            PropertiesFormWrapper form = new PropertiesFormWrapper(this, FriendlyName);
+            PropertiesFormWrapper form = new PropertiesFormWrapper(this, nodeName);
             return form.Show();
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Blend"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Operations"; }
         }
     }
 }

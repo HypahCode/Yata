@@ -1,10 +1,14 @@
 ﻿using System;
+using Yata.CoreNode;
 using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Generators
 {
+    [NodeUsage(@"Image.Generator", nodeName)]
     public class NoiseGeneratorNode : ImageNodeBase
     {
+        private const string nodeName = @"Noise";
+
         private enum NoiseFunction { Normal, Sin, Abs, Test }
 
         [DataTypeUINumeric("Random seed", 0, 9999999)]
@@ -16,7 +20,7 @@ namespace Yata.ImageNodes.Nodes.Generators
         private static byte[] perm;
 
         public NoiseGeneratorNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             outputs.Add(new FloatColorOutput(this, "Noise"));
             Init();
@@ -168,18 +172,8 @@ namespace Yata.ImageNodes.Nodes.Generators
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
-            PropertiesFormWrapper form = new PropertiesFormWrapper(this, FriendlyName);
+            PropertiesFormWrapper form = new PropertiesFormWrapper(this, nodeName);
             return form.Show();
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Noise"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Generator"; }
         }
     }
 }

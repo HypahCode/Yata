@@ -3,15 +3,18 @@ using Yata.CoreNode;
 
 namespace Yata.SoundNodes.Nodes.Generators
 {
+    [NodeUsage(@"Sound.Operations", nodeName)]
     public class RepeaterNode : SoundNodeBase
     {
+        private const string nodeName = @"Repeater";
+
         private float repeatCycles = 1000f;
 
         private SoundWaveInput input;
         private const int frequency = 44100;
 
         public RepeaterNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             outputs.Add(new SoundWaveOutput(this, "Out"));
 
@@ -34,7 +37,7 @@ namespace Yata.SoundNodes.Nodes.Generators
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
-            PropertiesForm form = new PropertiesForm(FriendlyName, this);
+            PropertiesForm form = new PropertiesForm(nodeName, this);
 
             return (form.ShowDialog() == DialogResult.OK);
         }
@@ -48,16 +51,5 @@ namespace Yata.SoundNodes.Nodes.Generators
         {
             base.Load(bundle);
         }
-
-        public static string FriendlyName
-        {
-            get { return "Repeater"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Sound.Operations"; }
-        }
-
     }
 }

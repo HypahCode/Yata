@@ -1,15 +1,27 @@
 ﻿using System.Drawing;
+using Yata.CoreNode;
+using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Operations
 {
+    [NodeUsage(@"Image.Operations", nodeName)]
     public class EdgeDetectionNode : ImageNodeBase
     {
+        private const string nodeName = @"Edge detect";
+
         private FloatColorInput input;
-        private PointF offset = new PointF(0.01f, 0.01f);
+
+        [DataTypeUISlider("Offset X", 0, 1000, 1)]
+        private int offsetX = 10;
+        [DataTypeUISlider("Offset Y", 0, 1000, 1)]
+        private int offsetY = 10;
+
+        private PointF offset = new PointF(0, 0);
+
         private FloatColor intensity = new FloatColor(0.8f, 0.0f);
 
         public EdgeDetectionNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             input = AddInput("Input");
 
@@ -21,8 +33,8 @@ namespace Yata.ImageNodes.Nodes.Operations
         public override void PrepareForRender(int w, int h)
         {
             base.PrepareForRender(w, h);
-            offset.X = 1.0f / w;
-            offset.Y = 1.0f / h;
+            offset.X = ((float)offsetX / 1000.0f) / w;
+            offset.Y = ((float)offsetY / 1000.0f) / h;
         }
 
         public override FloatColor GetPixel(float x, float y, bool preview)
@@ -45,14 +57,11 @@ namespace Yata.ImageNodes.Nodes.Operations
             return c;
         }
 
-        public static string FriendlyName
+        public override bool ShowPropertiesDialog()
         {
-            get { return "Edge detection"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Operations"; }
+            base.ShowPropertiesDialog();
+            PropertiesFormWrapper form = new PropertiesFormWrapper(this, nodeName);
+            return form.Show();
         }
     }
 }

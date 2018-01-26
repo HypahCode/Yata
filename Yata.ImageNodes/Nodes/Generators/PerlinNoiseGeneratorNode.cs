@@ -4,8 +4,11 @@ using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Generators
 {
+    [NodeUsage(@"Image.Generator", nodeName)]
     public class PerlinNoiseGeneratorNode : ImageNodeBase
     {
+        private const string nodeName = @"Perlin noise";
+
         [DataTypeUINumeric("Random seed", 0, 9999999)]
         private int seed = 0;
         [DataTypeUINumeric("Octaves", 0, 9)]
@@ -14,7 +17,7 @@ namespace Yata.ImageNodes.Nodes.Generators
         private float amplitudeFalloff = 2.0f;
 
         public PerlinNoiseGeneratorNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             outputs.Add(new FloatColorOutput(this, "Noise"));
             Init();
@@ -72,18 +75,8 @@ namespace Yata.ImageNodes.Nodes.Generators
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
-            PropertiesFormWrapper form = new PropertiesFormWrapper(this, FriendlyName);
+            PropertiesFormWrapper form = new PropertiesFormWrapper(this, nodeName);
             return form.Show();
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Perlin noise"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Generator"; }
         }
     }
 }

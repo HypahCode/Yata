@@ -1,12 +1,16 @@
-﻿
+﻿using Yata.CoreNode;
+
 namespace Yata.ImageNodes.Nodes.Output
 {
+    [NodeUsage(@"Image.Output", nodeName)]
     public class RenderOutputNode : ImageNodeBase
     {
+        private const string nodeName = @"Render output";
+
         private FloatColorInput input;
 
         public RenderOutputNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             input = AddInput("Input");
 
@@ -16,16 +20,6 @@ namespace Yata.ImageNodes.Nodes.Output
         public override FloatColor GetPixel(float x, float y, bool preview)
         {
             return input.GetPixel(x, y, preview);
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Render output"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Output"; }
         }
 
         public override bool ShowPropertiesDialog()

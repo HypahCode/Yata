@@ -5,8 +5,11 @@ using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Generators
 {
+    [NodeUsage(@"Image.Generator", nodeName)]
     public class VoronoiGeneratorNode : ImageNodeBase
     {
+        private const string nodeName = @"Voronoi";
+
         private struct Point
         {
             public float x;
@@ -43,7 +46,7 @@ namespace Yata.ImageNodes.Nodes.Generators
         private FloatColor white = new FloatColor(1.0f, 1.0f);
 
         public VoronoiGeneratorNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             outputs.Add(new FloatColorOutput(this, "Output"));
             Init();
@@ -225,20 +228,10 @@ namespace Yata.ImageNodes.Nodes.Generators
             }
         }
 
-        public static string FriendlyName
-        {
-            get { return "Voronoi"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Generator"; }
-        }
-
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
-            PropertiesFormWrapper form = new PropertiesFormWrapper(this, FriendlyName);
+            PropertiesFormWrapper form = new PropertiesFormWrapper(this, nodeName);
             return form.Show();
         }
     }

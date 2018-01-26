@@ -1,21 +1,21 @@
-﻿using Yata.CoreNode;
+﻿using System;
+using Yata.CoreNode;
 using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Operations
 {
     [NodeUsage(@"Image.Operations", nodeName)]
-    public class FlipNode : ImageNodeBase
+    public class TwirlNode : ImageNodeBase
     {
-        private const string nodeName = @"Flip";
+        private const string nodeName = @"Twirl";
+        private const int maxValue = 1000;
 
         private FloatColorInput input;
 
-        [DataTypeUIBool("Flip X")]
-        private bool flipX = true;
-        [DataTypeUIBool("Flip Y")]
-        private bool flipY = false;
+        [DataTypeUISlider("amount", -maxValue, maxValue, 1)]
+        private int amount = 20;
 
-        public FlipNode()
+        public TwirlNode()
             : base(nodeName)
         {
             input = AddInput("Input");
@@ -25,8 +25,21 @@ namespace Yata.ImageNodes.Nodes.Operations
 
         public override FloatColor GetPixel(float x, float y, bool preview)
         {
-            if (flipX) x = 1.0f - x;
-            if (flipY) y = 1.0f - y;
+            float twirlValue = (float)amount / (maxValue / 100);
+
+            x -= 0.5f;
+            y -= 0.5f;
+            float dist = (float)Math.Sqrt(x * x + y * y);
+
+            float s = (float)Math.Sin(amount * dist);
+            float c = (float)Math.Cos(amount * dist);
+
+            float xnew = x * c - y * s;
+            float ynew = x * s + y * c;
+
+            x = xnew + 0.5f;
+            y = ynew + 0.5f;
+
             return input.GetPixel(x, y, preview);
         }
 

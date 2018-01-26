@@ -1,10 +1,14 @@
 ﻿using System.Drawing;
+using Yata.CoreNode;
 using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Operations
 {
+    [NodeUsage(@"Image.Operations", nodeName)]
     public class NormalMapNode : ImageNodeBase
     {
+        private const string nodeName = @"Normal map";
+
         private FloatColorInput input;
         private PointF offset = new PointF(0.01f, 0.01f);
 
@@ -18,7 +22,7 @@ namespace Yata.ImageNodes.Nodes.Operations
         private FloatColor intensityColor = new FloatColor();
 
         public NormalMapNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             input = AddInput("Input");
             outputs.Add(new FloatColorOutput(this, "Output"));
@@ -67,18 +71,8 @@ namespace Yata.ImageNodes.Nodes.Operations
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
-            PropertiesFormWrapper form = new PropertiesFormWrapper(this, FriendlyName);
+            PropertiesFormWrapper form = new PropertiesFormWrapper(this, nodeName);
             return form.Show();
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Normal map"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Operations"; }
         }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using System;
+using Yata.CoreNode;
 
 namespace Yata.SoundNodes.Nodes.Generators
 {
+    [NodeUsage(@"Sound.Generator", nodeName)]
     public class SineWaveNode : GeneratorNodeBase
     {
+        private const string nodeName = @"Sine wave";
+
         public SineWaveNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             outputs.Add(new SoundWaveOutput(this, "Sin"));
 
@@ -20,16 +24,6 @@ namespace Yata.SoundNodes.Nodes.Generators
         public override float GetLenght()
         {
             return 1.0f / frequency;
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Sine wave"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Sound.Generator"; }
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using Yata.CoreNode;
 using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Generators
 {
+    [NodeUsage(@"Image.Generator", nodeName)]
     public class BrickGeneratorNode : ImageNodeBase
     {
+        private const string nodeName = @"Bricks";
 
         private class Brick
         {
@@ -42,7 +45,7 @@ namespace Yata.ImageNodes.Nodes.Generators
         private float brickRowShift = 0.1f;
 
         public BrickGeneratorNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             outputs.Add(new FloatColorOutput(this, "Bricks"));
             Init();
@@ -119,18 +122,8 @@ namespace Yata.ImageNodes.Nodes.Generators
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
-            PropertiesFormWrapper form = new PropertiesFormWrapper(this, FriendlyName);
+            PropertiesFormWrapper form = new PropertiesFormWrapper(this, nodeName);
             return form.Show();
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Bricks generator"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Generator"; }
         }
     }
 }

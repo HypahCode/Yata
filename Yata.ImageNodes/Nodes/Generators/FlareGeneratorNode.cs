@@ -1,10 +1,14 @@
 ﻿using System;
+using Yata.CoreNode;
 using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Generators
 {
+    [NodeUsage(@"Image.Generator", nodeName)]
     public class FlareGeneratorNodee : ImageNodeBase
     {
+        private const string nodeName = @"Flare";
+
         private enum CircleFunc { normal, sin, cos }
 
         [DataTypeUIEnum("Circle function")]
@@ -13,7 +17,7 @@ namespace Yata.ImageNodes.Nodes.Generators
         public int circleCount = 1;
 
         public FlareGeneratorNodee()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             outputs.Add(new FloatColorOutput(this, "Output"));
             Init();
@@ -44,20 +48,10 @@ namespace Yata.ImageNodes.Nodes.Generators
             return grey;
         }
 
-        public static string FriendlyName
-        {
-            get { return "Flare"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Generator"; }
-        }
-
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
-            PropertiesFormWrapper form = new PropertiesFormWrapper(this, FriendlyName);
+            PropertiesFormWrapper form = new PropertiesFormWrapper(this, nodeName);
             return form.Show();
         }
     }

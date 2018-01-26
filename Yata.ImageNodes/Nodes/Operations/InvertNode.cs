@@ -1,13 +1,17 @@
 ﻿using System.Drawing;
+using Yata.CoreNode;
 
 namespace Yata.ImageNodes.Nodes.Operations
 {
+    [NodeUsage(@"Image.Operations", nodeName)]
     public class InvertNode : ImageNodeBase
     {
+        private const string nodeName = @"Invert";
+
         private FloatColorInput input;
 
         public InvertNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             input = AddInput("Input");
             outputs.Add(new FloatColorOutput(this, "Output"));
@@ -17,16 +21,6 @@ namespace Yata.ImageNodes.Nodes.Operations
         public override FloatColor GetPixel(float x, float y, bool preview)
         {
             return input.GetPixel(x, y, preview).Invert(false);
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Invert"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Operations"; }
         }
 
         public static Bitmap Icon

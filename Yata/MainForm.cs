@@ -119,19 +119,23 @@ namespace Yata
             }
 
             // Could not find path, so add path node
-            TreeNode pathFolder = new TreeNode(path[depth]);
-            pathFolder.ImageIndex = 1;
-            pathFolder.SelectedImageIndex = 1;
+            TreeNode pathFolder = new TreeNode(path[depth])
+            {
+                ImageIndex = 1,
+                SelectedImageIndex = 1
+            };
             parent.Add(pathFolder);
             AddTreeViewNode(path, depth + 1, pathFolder.Nodes, newNode);
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog od = new OpenFileDialog();
-            od.Filter = BuildFileFilter();
-            od.Title = "Load a YATA file";
-            if (od.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            OpenFileDialog od = new OpenFileDialog
+            {
+                Filter = BuildFileFilter(),
+                Title = "Load a YATA file"
+            };
+            if (od.ShowDialog() == DialogResult.OK)
             {
                 string filename = od.FileName;
                 if (filename != "")
@@ -157,6 +161,7 @@ namespace Yata
                     }
 
                     SetActiveEditForm(edit);
+                    edit.FileName = filename;
                     edit.GetNodeContainer().UpdatePreviewRendering();
                 }
             }

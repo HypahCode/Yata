@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Nodes\Generators\BlockWaveNode.cs" />
+    <Compile Include="Nodes\Generators\SquareWaveNode.cs" />
     <Compile Include="Nodes\Generators\GeneratorNodeBase.cs" />
     <Compile Include="Nodes\Generators\SawToothNode.cs" />
     <Compile Include="Nodes\Generators\SineWaveNode.cs" />

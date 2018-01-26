@@ -6,6 +6,8 @@ namespace Yata.ImageNodes
 {
     public struct FloatColor
     {
+        public enum Channel { Red, Green, Blue, Alpha };
+
         public float r, g, b, a;
 
         public FloatColor(FloatColor copy)
@@ -54,6 +56,18 @@ namespace Yata.ImageNodes
                 Utils.ConvertColor(r),
                 Utils.ConvertColor(g), 
                 Utils.ConvertColor(b));
+        }
+
+        public float RGBA(Channel channel)
+        {
+            switch (channel)
+            {
+                case Channel.Red: return r;
+                case Channel.Green: return g;
+                case Channel.Blue: return b;
+                case Channel.Alpha: return a;
+            }
+            return r;
         }
 
         static public FloatColor operator +(FloatColor A, FloatColor B)

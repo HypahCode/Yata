@@ -57,6 +57,7 @@
     <Compile Include="DataTypes\DataTypeSerializerFactory.cs" />
     <Compile Include="DataTypes\DefaultSerializers.cs" />
     <Compile Include="DataTypes\MemberValue.cs" />
+    <Compile Include="NodeUsage.cs" />
     <Compile Include="PropertiesUi\DataTypeUIColor.cs" />
     <Compile Include="PropertiesUi\DataTypeUIBool.cs" />
     <Compile Include="PropertiesUi\DataTypeUIFloat.cs" />

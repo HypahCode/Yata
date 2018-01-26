@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Yata.CoreNode;
 
 namespace Yata.SoundNodes.Nodes.Generators
 {
+    [NodeUsage(@"Sound.Generator", nodeName)]
     public class SawToothNode : GeneratorNodeBase
     {
+        private const string nodeName = @"Saw wave";
+
         public SawToothNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             outputs.Add(new SoundWaveOutput(this, "Saw"));
 
@@ -21,16 +24,6 @@ namespace Yata.SoundNodes.Nodes.Generators
         public override float GetLenght()
         {
             return 1.0f / frequency;
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Saw tooth wave"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Sound.Generator"; }
         }
     }
 }

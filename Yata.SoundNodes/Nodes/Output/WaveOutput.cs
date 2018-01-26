@@ -3,13 +3,16 @@ using Yata.CoreNode;
 
 namespace Yata.SoundNodes.Nodes.Output
 {
+    [NodeUsage(@"Sound.Output", nodeName)]
     public class WaveOutput : SoundNodeBase
     {
+        private const string nodeName = @"Speaker output";
+
         private SoundWaveInput input;
         private const int frequency = 44100;
 
         public WaveOutput()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             input = new SoundWaveInput(this, "Input");
             inputs.Add(input);
@@ -75,16 +78,6 @@ namespace Yata.SoundNodes.Nodes.Output
         public override void Load(PropertyBundle bundle)
         {
             base.Load(bundle);
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Speaker output"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Sound.Output"; }
         }
     }
 }

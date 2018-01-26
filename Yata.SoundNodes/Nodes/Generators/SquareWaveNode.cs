@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Windows.Forms;
 using Yata.CoreNode;
 
 namespace Yata.SoundNodes.Nodes.Generators
 {
-    public class BlockWaveNode : GeneratorNodeBase
+    [NodeUsage(@"Sound.Generator", nodeName)]
+    public class SquareWaveNode : GeneratorNodeBase
     {
-        public BlockWaveNode()
-            : base(FriendlyName)
+        private const string nodeName = @"Square wave";
+
+        public SquareWaveNode()
+            : base(nodeName)
         {
-            outputs.Add(new SoundWaveOutput(this, "Block"));
+            outputs.Add(new SoundWaveOutput(this, "Square"));
 
             Init();
         }
@@ -23,16 +25,6 @@ namespace Yata.SoundNodes.Nodes.Generators
         public override float GetLenght()
         {
             return 1.0f / frequency;
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Block wave"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Sound.Generator"; }
         }
     }
 }

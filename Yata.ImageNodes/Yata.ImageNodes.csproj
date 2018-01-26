@@ -52,6 +52,13 @@
     <Compile Include="Nodes\Generators\NoiseGeneratorNode.cs" />
     <Compile Include="Nodes\Generators\PerlinNoiseGeneratorNode.cs" />
     <Compile Include="Nodes\Generators\VoronoiGeneratorNode.cs" />
+    <Compile Include="Nodes\Generators\GradientGeneratorNode.cs" />
+    <Compile Include="Nodes\Operations\TurbulenceNode.cs" />
+    <Compile Include="Nodes\Operations\TwirlNode.cs" />
+    <Compile Include="Nodes\Operations\RGBExtractionNode.cs" />
+    <Compile Include="Nodes\Operations\Rotate90Node.cs" />
+    <Compile Include="Nodes\Operations\SeamlessBordersNode.cs" />
+    <Compile Include="Nodes\Operations\MaskNode.cs" />
     <Compile Include="Nodes\Operations\BlendNode.cs" />
     <Compile Include="Nodes\Generators\ColorGeneratorNode.cs" />
     <Compile Include="Nodes\ExampleNode.cs" />

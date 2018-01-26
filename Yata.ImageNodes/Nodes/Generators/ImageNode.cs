@@ -7,14 +7,17 @@ using Yata.CoreNode.DataTypes;
 
 namespace Yata.ImageNodes.Nodes.Generators
 {
+    [NodeUsage(@"Image.Generator", nodeName)]
     public class ImageNode : ImageNodeBase
     {
+        private const string nodeName = @"Image";
+
         [DataType("Image from disk")]
         private string imageFromDisk = "";
         private Bitmap image;
         
         public ImageNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             outputs.Add(new FloatColorOutput(this, "Output"));
             Init();
@@ -55,21 +58,11 @@ namespace Yata.ImageNodes.Nodes.Generators
             }
         }
 
-        public static string FriendlyName
-        {
-            get { return "Image"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Generator"; }
-        }
-
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
 
-            PropertiesForm form = new PropertiesForm(FriendlyName, this);
+            PropertiesForm form = new PropertiesForm(nodeName, this);
             Button btn;
             TextBox textBox = form.AddEditWithButtonControl("image file", imageFromDisk, "browse", out btn);
             textBox.TextChanged += new EventHandler(FileTextChanged);
@@ -82,7 +75,7 @@ namespace Yata.ImageNodes.Nodes.Generators
                     };
                     if (imageFromDisk != "")
                     {
-                        od.InitialDirectory = Path.GetPathRoot(od.FileName);
+                        od.InitialDirectory = Path.GetPathRoot(imageFromDisk);
                     }
                     if (od.ShowDialog() == DialogResult.OK)
                     {

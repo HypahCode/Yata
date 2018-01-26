@@ -1,17 +1,21 @@
 ﻿using System;
+using Yata.CoreNode;
 using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Operations
 {
+    [NodeUsage(@"Image.Operations", nodeName)]
     public class PolarCoordsNode : ImageNodeBase
     {
+        private const string nodeName = @"Polar coords";
+        
         private FloatColorInput input;
 
         [DataTypeUIBool("To polar")]
         private bool toPolar;
 
         public PolarCoordsNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             input = AddInput("Input");
 
@@ -46,20 +50,10 @@ namespace Yata.ImageNodes.Nodes.Operations
             return input.GetPixel(x, y, preview);
         }
 
-        public static string FriendlyName
-        {
-            get { return "Polar coords"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Operations"; }
-        }
-
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
-            PropertiesFormWrapper form = new PropertiesFormWrapper(this, FriendlyName);
+            PropertiesFormWrapper form = new PropertiesFormWrapper(this, nodeName);
             return form.Show();
         }
     }

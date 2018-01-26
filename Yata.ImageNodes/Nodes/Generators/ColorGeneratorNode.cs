@@ -1,17 +1,21 @@
 ﻿using System.Drawing;
+using Yata.CoreNode;
 using Yata.CoreNode.PropertiesUi;
 
 namespace Yata.ImageNodes.Nodes.Generators
 {
+    [NodeUsage(@"Image.Generator", nodeName)]
     public class ColorGeneratorNode : ImageNodeBase
     {
+        private const string nodeName = @"Color";
+
         [DataTypeUIColor("Color")]
         private Color color = Color.Red;
 
         private FloatColor floatColor = new FloatColor(1.0f, 0.0f, 0.0f, 1.0f);
 
         public ColorGeneratorNode()
-            : base(FriendlyName)
+            : base(nodeName)
         {
             outputs.Add(new FloatColorOutput(this, "Color"));
             Init();
@@ -31,18 +35,8 @@ namespace Yata.ImageNodes.Nodes.Generators
         public override bool ShowPropertiesDialog()
         {
             base.ShowPropertiesDialog();
-            PropertiesFormWrapper form = new PropertiesFormWrapper(this, FriendlyName);
+            PropertiesFormWrapper form = new PropertiesFormWrapper(this, nodeName);
             return form.Show();
-        }
-
-        public static string FriendlyName
-        {
-            get { return "Color"; }
-        }
-
-        public static string SubMenuPath
-        {
-            get { return "Image.Generator"; }
         }
     }
 }
